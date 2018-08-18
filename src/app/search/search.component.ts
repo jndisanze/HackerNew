@@ -13,7 +13,7 @@ export class SearchComponent implements OnInit {
   items = [];
   page = 0;
   nbPages = 0;
-
+  searchValue; string;
   constructor(private http:  HttpClient) { }
   ngOnInit(): void {
   }
@@ -22,8 +22,9 @@ export class SearchComponent implements OnInit {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
     headers.append('Content-Type', 'application/json');
+    console.log(API_URL + 'query=' + this.searchValue   + '&page=' + this.page + '&tags=story');
     return this.http.get<Hacker>(
-      API_URL + 'query=' + form.search  + '&page=' + this.page,
+      API_URL + 'query=' + this.searchValue  + '&page=' + this.page + '&tags=story',
       { headers }
     )
     .subscribe(res => {
@@ -35,6 +36,7 @@ export class SearchComponent implements OnInit {
 
  public onSearchChange(searchValue: string ): void {
            this.page = 0;
+           this.searchValue = searchValue;
  }
  public previous(): void {
       if (this.page > 0) { this.page -= 1; }
