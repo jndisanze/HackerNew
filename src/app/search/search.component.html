@@ -4,10 +4,16 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
+<div class="container-fluid">
+    <div class="col-md-offset-1">
+      <h1>
+        Welcome to Hacker News!
+      </h1>
+    </div>
 <form #f="ngForm" (ngSubmit)="onSubmit(f.value)">
   <div>
     <label for="search">Search On Hacker News</label>
-    <input type="text" name="search" id="search" ngModel />
+    <input type="text" name="search" id="search" (input)="onSearchChange($event.target.value)" />
   </div>
   <button class="btn btn-info">Search</button>
   <table class="table table-striped">
@@ -16,7 +22,7 @@
       <th class="hidden">Id</th>
       <th>Title</th>
       <th>Author</th>
-      <th>Points</th>
+      <th>Created</th>
     </tr>
     </thead>
     <tbody>
@@ -24,11 +30,12 @@
       <td class="hidden">{{item.story_id}}</td>
       <td><a href="{{item.url}}">{{item.title}}</a></td>
       <td>{{item.author}}</td>
-       <td>{{item.points}}</td>
+       <td>{{item.created_at}}</td>
     </tr>
     </tbody>
     <button class="btn btn-info" (click)="previous()">previous</button>
-    {{page}} of {{nbPages}}
+    Page {{page + 1}} of {{nbPages + 1}}
     <button class="btn btn-info" (click)="next()">Next</button>
 </table>
 </form>
+</div>

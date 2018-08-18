@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Weather } from '../search/HackerData';
+import { Hacker } from '../search/HackerData';
 
 const API_URL  = 'https://hn.algolia.com/api/v1/search?';
 @Component({
@@ -13,17 +13,16 @@ export class SearchComponent implements OnInit {
   items = [];
   page = 0;
   nbPages = 0;
-  searchValues: string;
 
   constructor(private http:  HttpClient) { }
-
-  ngOnInit() {}
+  ngOnInit(): void {
+  }
 
   onSubmit(form) {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
     headers.append('Content-Type', 'application/json');
-    return this.http.get<Weather>(
+    return this.http.get<Hacker>(
       API_URL + 'query=' + form.search  + '&page=' + this.page,
       { headers }
     )
@@ -31,9 +30,12 @@ export class SearchComponent implements OnInit {
       this.items = res.hits;
       this.nbPages = res.nbPages - 1;
       this.page = res.page;
-      console.log(this.items);
     });
   }
+
+ public onSearchChange(searchValue: string ): void {
+           this.page = 0;
+ }
  public previous(): void {
       if (this.page > 0) { this.page -= 1; }
   }

@@ -1,4 +1,4 @@
-export interface Weather {
+export interface Hacker {
   hits?: (HitsEntity)[] | null;
   nbHits: number;
   page: number;
